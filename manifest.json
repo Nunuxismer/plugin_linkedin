@@ -1,0 +1,23 @@
+{
+  "manifest_version": 3,
+  "name": "LinkedIn Favorites Manager",
+  "version": "1.0",
+  "description": "Gerer plusieurs listes de favoris de cr\u00e9ations de contenu sur LinkedIn.",
+  "permissions": [
+    "storage"
+  ],
+  "host_permissions": [
+    "https://www.linkedin.com/*"
+  ],
+  "content_scripts": [
+    {
+      "matches": [
+        "https://www.linkedin.com/*"
+      ],
+      "js": [
+        "contentScript.js"
+      ],
+      "run_at": "document_idle"
+    }
+  ]
+}
