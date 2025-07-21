@@ -1,0 +1,8 @@
+{
+  "name": "plugin_linkedin",
+  "version": "1.0.0",
+  "description": "Extensions Chrome pour gérer des listes de profils LinkedIn",
+  "scripts": {
+    "test": "echo \"Aucun test défini\" && exit 0"
+  }
+}
