@@ -114,8 +114,10 @@
     document.body.appendChild(overlay);
   }
 
-  // Injecte le bouton de gestion sur les pages profil
-  function injectManageButton(profileId, lists) {
+  // Insère le bouton de gestion sur la page profil à côté des boutons
+  // "Message" et "Plus". Plusieurs tentatives sont effectuées car
+  // LinkedIn charge le contenu de manière asynchrone.
+  function injectManageButton(profileId, lists, attempt = 0) {
     const existing = document.getElementById('ln-manage-btn');
     if (existing) existing.remove();
 
@@ -129,17 +131,27 @@
       openListPopup(profileId, lists, run);
     });
 
-    const actionsBar = document.querySelector('.pvs-profile-actions');
-    const messageButton = document.querySelector('button[aria-label^="Message"],a[href*="messaging"]');
-    const moreButton = document.querySelector('button.artdeco-dropdown__trigger--placement-bottom');
+    // Cherche les boutons existants pour se caler au plus près de l'interface
+    const messageButton = document.querySelector('button[aria-label*="Message"],a[aria-label*="Message"]');
+    const moreButton = document.querySelector('button[aria-label*="Plus"],button[aria-label*="More"]');
+    const actionsBar = document.querySelector('.pvs-profile-actions') ||
+                       document.querySelector('.pv-top-card-v2-ctas') ||
+                       document.querySelector('.pv-top-card__actions');
 
     if (moreButton && moreButton.parentElement) {
-      moreButton.parentElement.insertBefore(button, moreButton);
+      // Après le bouton "Plus" s'il existe
+      moreButton.parentElement.insertBefore(button, moreButton.nextSibling);
     } else if (messageButton && messageButton.parentElement) {
+      // Sinon après le bouton "Message"
       messageButton.parentElement.insertBefore(button, messageButton.nextSibling);
     } else if (actionsBar) {
+      // À défaut on ajoute dans la barre d'actions
       actionsBar.appendChild(button);
+    } else if (attempt < 5) {
+      // Si la barre n'est pas encore chargée, on réessaie dans 500ms (5 fois max)
+      setTimeout(() => injectManageButton(profileId, lists, attempt + 1), 500);
     } else {
+      // Dernier recours : début de page
       document.body.insertBefore(button, document.body.firstChild);
     }
   }
