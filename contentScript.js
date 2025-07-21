@@ -25,8 +25,13 @@
 
   // Injection du bouton de suivi sur les pages profil
   function injectFollowButton(profileId, isFavorite) {
+    // S'assure qu'un seul bouton est pr\u00e9sent en retirant l'\u00e9ventuel bouton existant
+    const existing = document.getElementById('ln-fav-btn');
+    if (existing) existing.remove();
+
     // Cr\u00e9er le bouton
     const button = document.createElement('button');
+    button.id = 'ln-fav-btn';
     button.textContent = isFavorite ? 'Retirer des favoris' : 'Ajouter aux favoris';
     button.className = 'artdeco-button artdeco-button--2 artdeco-button--secondary';
     button.style.marginLeft = '8px';
