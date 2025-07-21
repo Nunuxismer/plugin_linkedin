@@ -130,15 +130,17 @@
     });
 
     const actionsBar = document.querySelector('.pvs-profile-actions');
-    if (actionsBar) {
+    const messageButton = document.querySelector('button[aria-label^="Message"],a[href*="messaging"]');
+    const moreButton = document.querySelector('button.artdeco-dropdown__trigger--placement-bottom');
+
+    if (moreButton && moreButton.parentElement) {
+      moreButton.parentElement.insertBefore(button, moreButton);
+    } else if (messageButton && messageButton.parentElement) {
+      messageButton.parentElement.insertBefore(button, messageButton.nextSibling);
+    } else if (actionsBar) {
       actionsBar.appendChild(button);
     } else {
-      const moreButton = document.querySelector('button.artdeco-dropdown__trigger--placement-bottom');
-      if (moreButton && moreButton.parentElement) {
-        moreButton.parentElement.insertBefore(button, moreButton);
-      } else {
-        document.body.insertBefore(button, document.body.firstChild);
-      }
+      document.body.insertBefore(button, document.body.firstChild);
     }
   }
 
