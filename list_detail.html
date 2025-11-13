@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Détails de la liste</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="page">
+      <header class="page-header">
+        <div>
+          <p class="muted">Favoris LinkedIn</p>
+          <h1 id="detail-title">Liste</h1>
+          <p id="detail-count" class="muted small"></p>
+        </div>
+        <div class="header-actions">
+          <input
+            id="profile-filter"
+            type="search"
+            placeholder="Filtrer les profils…"
+            aria-label="Filtrer les profils"
+          />
+          <button id="launch-search" class="secondary">Recherche LinkedIn</button>
+        </div>
+      </header>
+
+      <section>
+        <table class="profiles-table">
+          <thead>
+            <tr>
+              <th>Nom</th>
+              <th>Headline</th>
+              <th>Date d’ajout</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody id="profiles-body"></tbody>
+        </table>
+      </section>
+    </main>
+    <script type="module" src="list_detail.js"></script>
+  </body>
+</html>

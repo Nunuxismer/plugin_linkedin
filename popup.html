@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Favoris LinkedIn</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="popup">
+      <section class="profile-section">
+        <h1 id="profile-name">Profil LinkedIn</h1>
+        <p id="profile-status" class="muted"></p>
+      </section>
+
+      <section class="action-section">
+        <div id="add-section" class="card hidden">
+          <button id="show-add-form" class="primary">Ajouter le profil à une liste</button>
+          <div id="add-form" class="stack hidden">
+            <label for="list-select">Choisissez une liste</label>
+            <select id="list-select"></select>
+            <button id="confirm-add" class="primary">Ajouter à cette liste</button>
+            <button id="toggle-create-form" class="link">Créer une nouvelle liste</button>
+          </div>
+        </div>
+
+        <div id="remove-section" class="card hidden">
+          <p>Ce profil est dans la liste : <strong id="current-list-name"></strong></p>
+          <button id="remove-from-list" class="danger">Retirer le profil de la liste</button>
+        </div>
+
+        <div id="create-section" class="card hidden">
+          <h2>Créer une nouvelle liste</h2>
+          <form id="create-list-form" class="stack">
+            <label for="new-list-name">Nom de la liste *</label>
+            <input id="new-list-name" type="text" required />
+
+            <label for="new-list-description">Description</label>
+            <textarea id="new-list-description" rows="2"></textarea>
+
+            <label for="new-list-color">Couleur</label>
+            <input id="new-list-color" type="color" value="#4f46e5" />
+
+            <div class="actions">
+              <button type="submit" class="primary">Créer la liste</button>
+              <button type="button" id="cancel-create" class="secondary">Annuler</button>
+            </div>
+          </form>
+        </div>
+      </section>
+
+      <section class="links">
+        <button id="open-lists" class="secondary">Consulter mes listes de favoris</button>
+      </section>
+
+      <p id="error-message" class="error hidden"></p>
+    </main>
+    <script type="module" src="popup.js"></script>
+  </body>
+</html>
