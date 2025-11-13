@@ -85,6 +85,11 @@ export async function findListContainingProfile(profileId) {
 }
 
 export function generateSearchUrl(profiles) {
+  const memberIds = profiles.map((profile) => profile.memberId).filter(Boolean);
+  if (memberIds.length) {
+    const fromMember = encodeURIComponent(JSON.stringify(memberIds));
+    return `https://www.linkedin.com/search/results/content/?origin=FACETED_SEARCH&sortBy=%22date_posted%22&fromMember=${fromMember}`;
+  }
   if (!profiles.length) {
     return 'https://www.linkedin.com/search/results/people/';
   }

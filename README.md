@@ -7,7 +7,7 @@ Cette extension Manifest V3 permet d'ajouter depuis un profil LinkedIn les perso
 - Détection automatique du profil ouvert (`https://www.linkedin.com/in/...`).
 - Ajout ou retrait d'un profil dans une liste de favoris depuis le popup.
 - Création de nouvelles listes (nom + description + couleur) et ajout automatique du profil courant.
-- Page de gestion affichant l'ensemble des listes, avec options de renommage, suppression, filtrage instantané et lancement d'une recherche LinkedIn booléenne.
+- Page de gestion affichant l'ensemble des listes, avec options de renommage, suppression, filtrage instantané et lancement d'une recherche LinkedIn basée sur les memberId détectés.
 - Page de détail présentant tous les profils d'une liste avec accès direct au profil LinkedIn, filtrage textuel et suppression individuelle.
 
 ## Structure des fichiers
@@ -33,5 +33,5 @@ styles.css             # Styles partagés
 ## Remarques
 
 - Les données sont stockées localement via `chrome.storage.local`.
-- La génération de la recherche LinkedIn utilise une requête booléenne sur les noms enregistrés et ouvre simplement un nouvel onglet.
+- La génération de la recherche LinkedIn utilise le paramètre `fromMember` alimenté par les `memberId` extraits du HTML des profils ; en l'absence d'identifiants, une recherche booléenne classique sert de repli.
 - L'extension ne déclenche aucune action automatique sur LinkedIn en dehors des interactions explicites de l'utilisateur.

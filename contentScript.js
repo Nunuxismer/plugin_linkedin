@@ -29,20 +29,33 @@ function getHeadline() {
   return null;
 }
 
-function getMemberIdFromPage() {
-  const script = document.querySelector('code[id^="bpr-guid-"]');
-  if (!script) return null;
-  try {
-    const data = JSON.parse(script.textContent);
-    const profileView = data?.data?.data;
-    if (profileView && profileView.memberProfile) {
-      return profileView.memberProfile.memberId;
-    }
-  } catch (error) {
-    // ignore parsing errors
-  }
+function extractMemberIdFromHtml() {
+  const html = document.documentElement.outerHTML;
+  let match = html.match(/fsd_profile%3A(ACo[A-Za-z0-9_-]+)/);
+  if (match && match[1]) return match[1];
+  match = html.match(/fsd_profile:(ACo[A-Za-z0-9_-]+)/);
+  if (match && match[1]) return match[1];
   return null;
 }
+
+let cachedMemberId = null;
+
+function cacheMemberId() {
+  cachedMemberId = extractMemberIdFromHtml();
+  if (cachedMemberId && globalThis.chrome?.runtime?.sendMessage) {
+    try {
+      globalThis.chrome.runtime.sendMessage({
+        type: 'PROFILE_MEMBER_ID',
+        memberId: cachedMemberId
+      });
+    } catch (error) {
+      // Ignore messaging errors when no receiver is available.
+    }
+  }
+  return cachedMemberId;
+}
+
+cacheMemberId();
 
 function getProfileInfo() {
   const profileUrl = window.location.href.split('?')[0];
@@ -51,7 +64,7 @@ function getProfileInfo() {
     slug: getSlugFromUrl(profileUrl),
     fullName: getProfileName(),
     headline: getHeadline(),
-    memberId: getMemberIdFromPage(),
+    memberId: cachedMemberId || cacheMemberId(),
     dateCaptured: new Date().toISOString()
   };
 }
