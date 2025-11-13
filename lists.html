@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mes listes LinkedIn</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="page">
+      <header class="page-header">
+        <div>
+          <p class="muted">Favoris LinkedIn</p>
+          <h1>Mes listes</h1>
+        </div>
+        <div class="header-actions">
+          <input
+            id="list-filter"
+            type="search"
+            placeholder="Rechercher une liste…"
+            aria-label="Rechercher une liste"
+          />
+          <button id="open-create" class="primary">Créer une liste</button>
+        </div>
+      </header>
+
+      <section id="create-panel" class="card hidden">
+        <h2>Nouvelle liste</h2>
+        <form id="page-create-form" class="stack">
+          <label for="page-list-name">Nom *</label>
+          <input id="page-list-name" type="text" required />
+          <label for="page-list-description">Description</label>
+          <textarea id="page-list-description" rows="2"></textarea>
+          <label for="page-list-color">Couleur</label>
+          <input id="page-list-color" type="color" value="#4f46e5" />
+          <div class="actions">
+            <button class="primary" type="submit">Créer</button>
+            <button type="button" id="close-create" class="secondary">Annuler</button>
+          </div>
+        </form>
+      </section>
+
+      <section id="lists-container" class="grid"></section>
+    </main>
+
+    <template id="list-card-template">
+      <article class="card list-card">
+        <header>
+          <h2 class="list-name"></h2>
+          <span class="badge"></span>
+        </header>
+        <p class="muted list-description"></p>
+        <p class="muted small list-meta"></p>
+        <div class="list-actions">
+          <button class="secondary view-list">Voir les profils</button>
+          <button class="secondary search-list">Recherche LinkedIn</button>
+          <button class="link rename-list">Renommer</button>
+          <button class="link danger delete-list">Supprimer</button>
+        </div>
+      </article>
+    </template>
+
+    <script type="module" src="lists.js"></script>
+  </body>
+</html>
